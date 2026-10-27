@@ -1,0 +1,2751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Odette — Curated Minimalist Living & Apparel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #f8f8f4;
+  --ink: #24241f;
+  --muted: #77776e;
+  --purple: #6d4bd1;
+  --purple-dark: #5234b4;
+  --light-purple: #eee9ff;
+  --line: #e7e7df;
+  --white: #ffffff;
+  --success: #15803d;
+  --success-bg: #dcfce7;
+  --warn: #b45309;
+  --warn-bg: #fef3c7;
+  --danger: #be123c;
+  --danger-bg: #ffe4e6;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 86px; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+button, input, select, textarea { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+/* Announcement Bar */
+.announcement {
+  padding: 9px 16px;
+  background: #24241f;
+  color: #f8f8f4;
+  text-align: center;
+  font-size: 11.5px;
+  letter-spacing: 0.3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+.announcement span { color: #f2e98a; font-weight: 700; }
+
+/* Sticky Header */
+header {
+  min-height: 74px;
+  padding: 10px 6%;
+  background: rgba(248, 248, 244, 0.97);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  backdrop-filter: blur(14px);
+}
+
+.logo {
+  font-family: "Manrope", sans-serif;
+  font-weight: 800;
+  font-size: 27px;
+  letter-spacing: -1.5px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.logo span { color: var(--purple); }
+
+nav.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+nav.desktop-nav a {
+  color: #55554d;
+  font-size: 13px;
+  font-weight: 500;
+  transition: color 0.15s ease;
+  position: relative;
+  padding: 4px 0;
+}
+nav.desktop-nav a:hover,
+nav.desktop-nav a.active {
+  color: var(--purple);
+}
+nav.desktop-nav a.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--purple);
+  border-radius: 2px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.currency-select {
+  border: 1px solid var(--line);
+  background: var(--white);
+  border-radius: 8px;
+  padding: 6px 9px;
+  font-size: 11.5px;
+  color: var(--ink);
+  font-weight: 600;
+  cursor: pointer;
+}
+.currency-select:focus {
+  outline: none;
+  border-color: var(--purple);
+}
+
+.header-btn {
+  background: none;
+  border: 1px solid transparent;
+  padding: 7px 11px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+  color: var(--ink);
+}
+.header-btn:hover {
+  background: rgba(109, 75, 209, 0.08);
+  border-color: rgba(109, 75, 209, 0.2);
+  color: var(--purple);
+}
+
+.badge-pill {
+  background: var(--purple);
+  color: white;
+  border-radius: 12px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  display: inline-grid;
+  place-items: center;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.user-btn {
+  background: var(--light-purple);
+  color: var(--purple);
+  border: 1px solid rgba(109, 75, 209, 0.25);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s;
+}
+.user-btn:hover {
+  background: var(--purple);
+  color: white;
+}
+
+.menu-btn {
+  display: none;
+  background: none;
+  border: 1px solid var(--line);
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 17px;
+  color: var(--ink);
+}
+
+/* Mobile Nav Drawer */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: 74px;
+  left: 0;
+  width: 100%;
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+  padding: 18px 6%;
+  box-shadow: 0 16px 30px rgba(0,0,0,0.08);
+  z-index: 39;
+  flex-direction: column;
+  gap: 12px;
+}
+.mobile-nav.open {
+  display: flex;
+}
+.mobile-nav a,
+.mobile-nav button {
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 13.5px;
+  font-weight: 600;
+  text-align: left;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.mobile-nav a:hover,
+.mobile-nav button:hover {
+  background: var(--light-purple);
+  color: var(--purple);
+}
+
+/* Hero Section */
+.hero {
+  padding: 60px 6% 50px;
+  display: grid;
+  grid-template-columns: 1.15fr 0.95fr;
+  align-items: center;
+  gap: 40px;
+}
+.eyebrow {
+  color: var(--purple);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-bottom: 14px;
+}
+.hero h1 {
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(38px, 5.2vw, 68px);
+  line-height: 1.05;
+  letter-spacing: -2.5px;
+  margin: 0 0 18px;
+}
+.hero h1 span { color: var(--purple); }
+.hero p {
+  color: var(--muted);
+  font-size: 15.5px;
+  line-height: 1.7;
+  max-width: 500px;
+  margin: 0 0 24px;
+}
+
+.search-box {
+  display: flex;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 6px;
+  max-width: 500px;
+  box-shadow: 0 10px 25px rgba(36,36,31,0.04);
+}
+.search-box input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  padding: 10px 14px;
+  background: transparent;
+  font-size: 13px;
+  color: var(--ink);
+}
+.search-box input::placeholder {
+  color: #99998e;
+}
+.primary-btn {
+  background: var(--purple);
+  color: white;
+  border: none;
+  border-radius: 9px;
+  padding: 11px 22px;
+  font-size: 13px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+.primary-btn:hover {
+  background: var(--purple-dark);
+}
+.primary-btn:active {
+  transform: scale(0.98);
+}
+
+.suggestions {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+}
+.suggestions small {
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-right: 2px;
+}
+.suggestion {
+  padding: 6px 12px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #44443c;
+  transition: all 0.15s;
+}
+.suggestion:hover {
+  border-color: var(--purple);
+  color: var(--purple);
+  background: var(--light-purple);
+}
+
+/* Hero Images Collage */
+.hero-images {
+  position: relative;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-bg-shape {
+  position: absolute;
+  width: 82%;
+  height: 92%;
+  background: #ede8f8;
+  border-radius: 40% 40% 24px 24px;
+  transform: rotate(3deg);
+}
+.hero-main-img {
+  position: absolute;
+  width: 65%;
+  height: 85%;
+  right: 8%;
+  object-fit: cover;
+  border-radius: 120px 120px 16px 16px;
+  box-shadow: 0 20px 40px rgba(36, 36, 31, 0.12);
+}
+.hero-secondary-img {
+  position: absolute;
+  width: 44%;
+  height: 48%;
+  left: 2%;
+  bottom: 0;
+  object-fit: cover;
+  border: 6px solid var(--bg);
+  border-radius: 16px;
+  box-shadow: 0 14px 30px rgba(36, 36, 31, 0.1);
+}
+.hero-badge-note {
+  position: absolute;
+  top: 14%;
+  left: 0;
+  background: white;
+  padding: 12px 16px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  font-size: 12px;
+  border: 1px solid var(--line);
+  z-index: 2;
+}
+.hero-badge-note strong { display: block; font-size: 12.5px; color: var(--ink); }
+.hero-badge-note small { color: var(--muted); font-size: 11px; }
+
+/* Benefits */
+.benefits-grid {
+  padding: 10px 6% 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.benefit-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 22px 20px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.benefit-icon {
+  font-size: 24px;
+  background: var(--light-purple);
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.benefit-text h4 {
+  margin: 0 0 4px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.benefit-text p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Catalog Section */
+.shop-section {
+  padding: 50px 6% 60px;
+}
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 26px;
+}
+.section-header h2 {
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(28px, 3.5vw, 42px);
+  letter-spacing: -1.2px;
+  margin: 0 0 6px;
+}
+.section-header h2 span { color: var(--purple); }
+.section-header p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Filter Bar */
+.filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 14px 18px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  margin-bottom: 24px;
+}
+
+.category-pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.category-btn {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: #44443c;
+  padding: 8px 16px;
+  border-radius: 24px;
+  font-size: 12.5px;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+.category-btn:hover {
+  border-color: var(--purple);
+  color: var(--purple);
+}
+.category-btn.active {
+  background: var(--purple);
+  border-color: var(--purple);
+  color: white;
+}
+
+.sort-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sort-select {
+  border: 1px solid var(--line);
+  background: var(--bg);
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-size: 12px;
+  color: var(--ink);
+  font-weight: 600;
+}
+.sort-select:focus {
+  outline: none;
+  border-color: var(--purple);
+}
+
+.text-btn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 6px;
+  text-decoration: underline;
+}
+.text-btn:hover { color: var(--purple); }
+
+.results-info {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+
+/* Product Grid */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 26px;
+}
+
+.product-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.product-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(109, 75, 209, 0.3);
+  box-shadow: 0 16px 35px rgba(36, 36, 31, 0.07);
+}
+
+.card-photo {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: #f1f0eb;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.card-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+.product-card:hover .card-photo img {
+  transform: scale(1.04);
+}
+
+.stock-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+.stock-tag.in-stock { background: var(--success-bg); color: var(--success); }
+.stock-tag.low-stock { background: var(--warn-bg); color: var(--warn); }
+.stock-tag.preorder { background: var(--light-purple); color: var(--purple); }
+
+.heart-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(0,0,0,0.06);
+  display: grid;
+  place-items: center;
+  font-size: 15px;
+  color: #88887e;
+  transition: all 0.15s ease;
+}
+.heart-btn:hover,
+.heart-btn.saved {
+  background: white;
+  color: #e11d48;
+  transform: scale(1.1);
+}
+
+.quick-add-btn {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  background: rgba(36, 36, 31, 0.92);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 9px;
+  font-size: 12px;
+  font-weight: 700;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: all 0.2s ease;
+}
+.product-card:hover .quick-add-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+.quick-add-btn:hover {
+  background: var(--purple);
+}
+
+.card-details {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.card-cat {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--purple);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 4px;
+}
+.card-title {
+  font-family: "Manrope", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 6px;
+  line-height: 1.35;
+  cursor: pointer;
+  color: var(--ink);
+}
+.card-title:hover {
+  color: var(--purple);
+}
+.card-rating {
+  font-size: 11.5px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+.card-rating span { color: #f59e0b; font-size: 13px; }
+
+.card-footer {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.price-tag {
+  font-family: "Manrope", sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--ink);
+}
+.compare-price {
+  font-size: 12px;
+  color: #a0a095;
+  text-decoration: line-through;
+  margin-left: 5px;
+  font-weight: 500;
+}
+
+.variant-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--line);
+}
+.variant-chip {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: #55554e;
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 6px;
+  transition: all 0.15s;
+}
+.variant-chip:hover {
+  border-color: var(--purple);
+}
+.variant-chip.active {
+  background: var(--light-purple);
+  border-color: var(--purple);
+  color: var(--purple);
+}
+
+/* Empty Catalog State */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  background: var(--white);
+  border: 1px dashed var(--line);
+  border-radius: 16px;
+}
+.empty-state h3 {
+  font-family: "Manrope", sans-serif;
+  font-size: 20px;
+  margin: 0 0 8px;
+}
+.empty-state p {
+  color: var(--muted);
+  font-size: 13.5px;
+  max-width: 400px;
+  margin: 0 auto 18px;
+}
+
+/* Editorial Story Section */
+.editorial {
+  padding: 60px 6%;
+  background: #ede8f5;
+  margin: 30px 0;
+}
+.editorial-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+.editorial-text h2 {
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(30px, 4vw, 46px);
+  line-height: 1.15;
+  letter-spacing: -1.5px;
+  margin: 0 0 16px;
+}
+.editorial-text h2 em {
+  font-style: italic;
+  font-weight: 400;
+}
+.editorial-text p {
+  color: #55554e;
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 22px;
+}
+.editorial-img-box {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 45px rgba(36, 36, 31, 0.15);
+}
+
+/* Newsletter */
+.newsletter {
+  padding: 60px 6%;
+  text-align: center;
+  background: var(--white);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.newsletter h3 {
+  font-family: "Manrope", sans-serif;
+  font-size: 28px;
+  letter-spacing: -1px;
+  margin: 0 0 8px;
+}
+.newsletter p {
+  color: var(--muted);
+  font-size: 14px;
+  max-width: 480px;
+  margin: 0 auto 22px;
+}
+.newsletter-form {
+  display: flex;
+  max-width: 440px;
+  margin: 0 auto;
+  gap: 8px;
+}
+.newsletter-form input {
+  flex: 1;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 11px 16px;
+  font-size: 13px;
+  outline: none;
+}
+.newsletter-form input:focus {
+  border-color: var(--purple);
+}
+
+/* Footer */
+footer {
+  padding: 50px 6% 30px;
+  background: #24241f;
+  color: #d8d8ce;
+  font-size: 13px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+.footer-logo {
+  font-family: "Manrope", sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 12px;
+}
+.footer-logo span { color: #a78bfa; }
+.footer-bio {
+  color: #9a9a8f;
+  font-size: 13px;
+  line-height: 1.7;
+  max-width: 320px;
+}
+.footer-col h5 {
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  margin: 0 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.footer-links a,
+.footer-links button {
+  color: #9a9a8f;
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
+  font-size: 13px;
+  transition: color 0.15s;
+}
+.footer-links a:hover,
+.footer-links button:hover {
+  color: white;
+}
+.footer-bottom {
+  border-top: 1px solid #383830;
+  padding-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  color: #77776d;
+  font-size: 12px;
+}
+
+/* Backdrops & Drawers */
+.drawer-backdrop,
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(36, 36, 31, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 50;
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+.drawer-backdrop.open,
+.modal-backdrop.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.slide-drawer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  max-width: 440px;
+  height: 100%;
+  background: var(--bg);
+  box-shadow: -10px 0 35px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.drawer-backdrop.open .slide-drawer {
+  transform: translateX(0);
+}
+
+.drawer-header {
+  padding: 18px 22px;
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.drawer-header h3 {
+  font-family: "Manrope", sans-serif;
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.close-btn {
+  background: none;
+  border: 1px solid var(--line);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  color: var(--ink);
+  transition: all 0.15s;
+}
+.close-btn:hover {
+  background: var(--danger-bg);
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 22px;
+}
+.drawer-footer {
+  padding: 18px 22px;
+  background: var(--white);
+  border-top: 1px solid var(--line);
+}
+
+/* Bag Items */
+.bag-item {
+  display: flex;
+  gap: 14px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 12px;
+  align-items: center;
+}
+.bag-item img {
+  width: 68px;
+  height: 68px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: #f1f0eb;
+  flex-shrink: 0;
+}
+.bag-item-info {
+  flex: 1;
+  min-width: 0;
+}
+.bag-item-info h4 {
+  margin: 0 0 3px;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.bag-item-info small {
+  color: var(--muted);
+  font-size: 11px;
+  display: block;
+  margin-bottom: 4px;
+}
+.bag-item-price {
+  font-weight: 700;
+  color: var(--purple);
+  font-size: 13.5px;
+}
+.qty-controls {
+  display: flex;
+  align-items: center;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.qty-controls button {
+  background: none;
+  border: none;
+  width: 26px;
+  height: 26px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  color: var(--ink);
+}
+.qty-controls button:hover {
+  background: var(--light-purple);
+  color: var(--purple);
+}
+.qty-controls span {
+  padding: 0 6px;
+  font-size: 12px;
+  font-weight: 700;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* Modals (Center Dialog) */
+.modal-backdrop {
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-card {
+  background: var(--white);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 520px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.22);
+  overflow: hidden;
+  transform: scale(0.95);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+.modal-backdrop.open .modal-card {
+  transform: scale(1);
+}
+
+.modal-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-header h3 {
+  font-family: "Manrope", sans-serif;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+}
+.modal-body {
+  padding: 24px;
+  overflow-y: auto;
+}
+
+/* Form Styles */
+.form-group {
+  margin-bottom: 16px;
+}
+.form-group label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--ink);
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 10px 14px;
+  font-size: 13px;
+  background: var(--bg);
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--purple);
+  background: white;
+}
+
+.input-with-action {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.input-with-action input {
+  padding-right: 44px;
+}
+.toggle-pwd-btn {
+  position: absolute;
+  right: 8px;
+  background: none;
+  border: none;
+  padding: 6px;
+  font-size: 14px;
+  color: var(--muted);
+  display: grid;
+  place-items: center;
+}
+.toggle-pwd-btn:hover {
+  color: var(--purple);
+}
+
+.form-error {
+  font-size: 11.5px;
+  color: var(--danger);
+  margin-top: 5px;
+  display: none;
+  font-weight: 500;
+}
+.form-error.visible {
+  display: block;
+}
+
+.form-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 12px;
+  color: #55554e;
+  cursor: pointer;
+}
+.form-checkbox input {
+  margin-top: 3px;
+  cursor: pointer;
+  accent-color: var(--purple);
+}
+
+/* Auth Tabs */
+.auth-tabs {
+  display: flex;
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 4px;
+  margin-bottom: 20px;
+  border: 1px solid var(--line);
+}
+.auth-tab-btn {
+  flex: 1;
+  border: none;
+  background: none;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--muted);
+  transition: all 0.15s;
+}
+.auth-tab-btn.active {
+  background: white;
+  color: var(--purple);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+.auth-disclaimer {
+  background: var(--light-purple);
+  border: 1px solid rgba(109, 75, 209, 0.2);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 11.5px;
+  color: #4a3292;
+  margin-bottom: 18px;
+  line-height: 1.5;
+}
+
+.auth-success-card {
+  text-align: center;
+  padding: 30px 10px;
+  display: none;
+}
+.auth-success-icon {
+  font-size: 42px;
+  margin-bottom: 12px;
+}
+.auth-success-card h4 {
+  font-family: "Manrope", sans-serif;
+  font-size: 22px;
+  margin: 0 0 8px;
+  color: var(--ink);
+}
+.auth-success-card p {
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.6;
+  max-width: 360px;
+  margin: 0 auto 20px;
+}
+
+/* Toast Notification */
+.toast-container {
+  position: fixed;
+  bottom: 22px;
+  right: 22px;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+.toast {
+  background: #24241f;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-size: 12.5px;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: slideToast 0.25s ease;
+  pointer-events: auto;
+}
+@keyframes slideToast {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Media Queries */
+@media (max-width: 992px) {
+  .hero { grid-template-columns: 1fr; padding-top: 40px; }
+  .hero-images { min-height: 340px; }
+  .editorial-grid { grid-template-columns: 1fr; }
+  .benefits-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  header { padding: 10px 4%; }
+  nav.desktop-nav { display: none; }
+  .menu-btn { display: block; }
+  .shop-section { padding: 40px 4% 50px; }
+  .filter-bar { flex-direction: column; align-items: stretch; }
+  .sort-controls { justify-content: space-between; }
+  .product-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .card-photo { aspect-ratio: 1 / 1; }
+  .quick-add-btn { display: none; }
+  .footer-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .product-grid { grid-template-columns: 1fr; }
+  .newsletter-form { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- Announcement Bar -->
+<div class="announcement">
+  <span>✨ ODETTE ALGERIA</span> • ZERO UPFRONT PAYMENT • FREE WILAYA DELIVERY ON RESERVATIONS OVER 5,000 DZD • PAY IN CASH ON DELIVERY
+</div>
+
+<!-- Sticky Header -->
+<header>
+  <a href="#top" class="logo" aria-label="Odette Home">
+    Odette<span>.</span>
+  </a>
+
+  <nav class="desktop-nav" aria-label="Main Navigation">
+    <a href="#shopSection" data-nav-cat="all" class="active">Shop All</a>
+    <a href="#shopSection" data-nav-cat="Small Deco">Small Deco</a>
+    <a href="#shopSection" data-nav-cat="Clothes">Clothes</a>
+    <a href="#shopSection" data-nav-cat="Accessories">Accessories</a>
+    <a href="#editorialSection">Editorial</a>
+    <a href="#trackModal" id="navTrackBtn">Track Order</a>
+  </nav>
+
+  <div class="header-actions">
+    <label for="currencySelect" style="display:none;">Currency</label>
+    <select id="currencySelect" class="currency-select" title="Switch currency">
+      <option value="DZD">🇩🇿 DZD (د.ج)</option>
+      <option value="USD">🇺🇸 USD ($)</option>
+      <option value="EUR">🇪🇺 EUR (€)</option>
+    </select>
+
+    <a href="odette_admin.html" class="header-btn" title="Open Merchant Admin Studio" style="background: #f1f0ea; padding: 6px 11px; border-radius: 8px; font-size: 11.5px; font-weight: 700; color: #37372f; border: 1px solid var(--line); display: inline-flex; align-items: center; gap: 5px;">⚙️ Admin</a>
+    <button type="button" class="user-btn" id="openAuthBtn" title="Client Profile & Registration">
+      👤 <span id="authBtnLabel">Sign In / Register</span>
+    </button>
+
+    <button type="button" class="header-btn" id="openWishlistBtn" title="Saved Favorites">
+      ♥ <span class="badge-pill" id="savedCountBadge">0</span>
+    </button>
+
+    <button type="button" class="header-btn" id="openBagBtn" title="Shopping Bag">
+      🛍️ <span class="badge-pill" id="bagCountBadge">0</span>
+    </button>
+
+    <button type="button" class="menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation Menu">
+      ☰
+    </button>
+  </div>
+</header>
+
+<!-- Mobile Navigation Drawer -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#shopSection" data-nav-cat="all">Shop All Collection</a>
+  <a href="#shopSection" data-nav-cat="Small Deco">Small Home Deco</a>
+  <a href="#shopSection" data-nav-cat="Clothes">Select Clothes</a>
+  <a href="#shopSection" data-nav-cat="Accessories">Everyday Accessories</a>
+  <a href="#editorialSection">Editorial Story</a>
+  <button type="button" id="mobileAuthBtn">👤 Client Account & Registration</button>
+  <button type="button" id="mobileWishlistBtn">♥ My Saved Wishlist (<span id="mobileSavedCount">0</span>)</button>
+  <button type="button" id="mobileTrackBtn">📦 Track My Reservation</button>
+</div>
+
+<!-- Hero Section -->
+<section class="hero" id="top">
+  <div>
+    <span class="eyebrow" id="heroEyebrow">ODETTE OFFICIAL BOUTIQUE • ALGERIA</span>
+    <h1 id="heroHeadline">Discover your next <span>favorite</span> piece.</h1>
+    <p id="heroSubtext">
+      Thoughtfully curated small home deco, cozy heavyweight apparel, and timeless accessories. Reserve online in 30 seconds with zero upfront payment — inspect and pay in cash upon home delivery.
+    </p>
+
+    <form class="search-box" id="heroSearchForm">
+      <input type="search" id="searchInput" placeholder="Search ceramic vase, sunset lamp, sand hoodie, crossbody..." aria-label="Search Odette catalog">
+      <button type="submit" class="primary-btn">Search</button>
+    </form>
+
+    <div class="suggestions" id="suggestionPills">
+      <small>Popular:</small>
+      <button type="button" class="suggestion" data-suggest="Small Deco">Small Deco</button>
+      <button type="button" class="suggestion" data-suggest="Sunset Lamp">Sunset Lamp</button>
+      <button type="button" class="suggestion" data-suggest="Sand Hoodie">Sand Hoodie</button>
+      <button type="button" class="suggestion" data-suggest="Ceramic Vase">Ceramic Vase</button>
+      <button type="button" class="suggestion" data-suggest="Accessories">Accessories</button>
+    </div>
+  </div>
+
+  <div class="hero-images">
+    <div class="hero-bg-shape"></div>
+    <img src=\"https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1000&q=80\" alt=\"Odette Nordic Ceramic Deco Set\" class=\"hero-main-img\">
+    <img src=\"https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=600&q=80\" alt=\"Odette Heavyweight Oversized Sand Hoodie\" class=\"hero-secondary-img\">
+    <div class="hero-badge-note">
+      <strong>✨ Verified Quality</strong>
+      <small>Curated & insitu-tested</small>
+    </div>
+  </div>
+</section>
+
+<!-- Value Pillars -->
+<section class="benefits-grid">
+  <div class="benefit-card">
+    <div class="benefit-icon">💵</div>
+    <div class="benefit-text">
+      <h4>0 Upfront Payment</h4>
+      <p>Reserve online in 30 seconds. Pay cash on delivery across all 58 Wilayas.</p>
+    </div>
+  </div>
+  <div class="benefit-card">
+    <div class="benefit-icon">📦</div>
+    <div class="benefit-text">
+      <h4>Inspected Quality</h4>
+      <p>Every piece is inspected for premium craftsmanship before local dispatch.</p>
+    </div>
+  </div>
+  <div class="benefit-card">
+    <div class="benefit-icon">💬</div>
+    <div class="benefit-text">
+      <h4>Fast Direct Support</h4>
+      <p>Instant human assistance via WhatsApp and Instagram for any order question.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Catalog Section -->
+<section class="shop-section" id="shopSection">
+  <div class="section-header">
+    <div>
+      <span class="eyebrow">CURATED COLLECTION</span>
+      <h2>Handpicked for <span>everyday</span> living</h2>
+      <p>Select your favorite pieces below to customize options or reserve directly.</p>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <div class="category-pills" id="categoryButtons">
+      <button type="button" class="category-btn active" data-cat="all">All Pieces</button>
+      <button type="button" class="category-btn" data-cat="Small Deco">Small Deco</button>
+      <button type="button" class="category-btn" data-cat="Clothes">Clothes</button>
+      <button type="button" class="category-btn" data-cat="Accessories">Accessories</button>
+      <button type="button" class="category-btn" data-cat="saved">♥ Saved Wishlist</button>
+    </div>
+
+    <div class="sort-controls">
+      <label for="sortSelect" style="display:none;">Sort catalog</label>
+      <select id="sortSelect" class="sort-select">
+        <option value="featured">Featured Pieces</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+        <option value="rating">Top Rated (4.8+)</option>
+      </select>
+      <button type="button" class="text-btn" id="resetFiltersBtn">Reset</button>
+    </div>
+  </div>
+
+  <div class="results-info" id="resultsText">
+    Showing all curated pieces
+  </div>
+
+  <div class="product-grid" id="productGrid">
+    <!-- Populated dynamically by JS -->
+  </div>
+</section>
+
+<!-- Editorial Story -->
+<section class="editorial" id="editorialSection">
+  <div class="editorial-grid">
+    <div class="editorial-text">
+      <span class="eyebrow">THE ODETTE AESTHETIC</span>
+      <h2>Warm minimalism for <em>your</em> personal sanctuary.</h2>
+      <p>
+        Odette began with a singular belief: the objects surrounding you every day should bring calm, warmth, and elevated simplicity. We carefully curate serene ceramics, atmospheric lighting, and timeless everyday essentials.
+      </p>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <button type="button" class="primary-btn" id="editorialShopDecoBtn">Explore Small Deco</button>
+        <button type="button" class="header-btn" id="editorialTrackBtn" style="background: white; border: 1px solid var(--line);">Track Reservation</button>
+      </div>
+    </div>
+    <div class="editorial-img-box">
+      <img src=\"https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1000&q=80\" alt=\"Odette Lifestyle Collection\" style=\"width: 100%; height: auto; display: block;\">
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter / VIP Club -->
+<section class="newsletter">
+  <h3>Join the Odette Circle</h3>
+  <p>Receive preview notifications for limited artisanal drops and private capsule launches.</p>
+  <form class="newsletter-form" id="newsletterForm">
+    <input type="email" id="newsletterEmail" placeholder="Enter your email address" required aria-label="Email address">
+    <button type="submit" class="primary-btn">Join Circle</button>
+  </form>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">Odette<span>.</span></div>
+      <p class="footer-bio">
+        Curated lifestyle boutique offering minimalist home decor, apparel, and accessories across Algeria with safe cash-on-delivery reservations.
+      </p>
+    </div>
+    <div class="footer-col">
+      <h5>Catalog</h5>
+      <ul class="footer-links">
+        <li><button type="button" data-footer-cat="all">All Curated Pieces</button></li>
+        <li><button type="button" data-footer-cat="Small Deco">Small Home Deco</button></li>
+        <li><button type="button" data-footer-cat="Clothes">Select Clothes</button></li>
+        <li><button type="button" data-footer-cat="Accessories">Everyday Accessories</button></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Client Services</h5>
+      <ul class="footer-links">
+        <li><button type="button" id="footerAuthBtn">Client Registration</button></li>
+        <li><button type="button" id="footerWishlistBtn">Saved Wishlist</button></li>
+        <li><button type="button" id="footerTrackBtn">Track Reservation</button></li>
+        <li><button type="button" id="footerOpenBagBtn">View Shopping Bag</button></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Assistance</h5>
+      <ul class="footer-links">
+        <li><a href="#top">Return & Inspection Policy</a></li>
+        <li><a href="#top">Wilaya Shipping Timeline</a></li>
+        <li><a href="#top" id="footerIgHandle">Instagram: @odette.boutique</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 Odette Lifestyle Boutique. All rights reserved.</div>
+    <div>Algérie • Cash on Delivery • 58 Wilayas</div>
+  </div>
+</footer>
+
+<!-- Quick View Modal Dialog -->
+<div class="modal-backdrop" id="quickViewBackdrop">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3 id="qvTitle">Product Details</h3>
+      <button type="button" class="close-btn" id="closeQvBtn" aria-label="Close modal">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start;" id="qvGrid">
+        <div style="position: relative; border-radius: 12px; overflow: hidden; background: #f1f0eb;">
+          <img id=\"qvImg\" src=\"https://images.unsplash.com/photo-1612196808214-b8e1d6145a8c?auto=format&fit=crop&w=800&q=80\" alt="Product preview" style="width: 100%; aspect-ratio: 1/1; object-fit: cover;">
+          <span id="qvTag" class="stock-tag in-stock" style="top: 10px; left: 10px;">In Stock</span>
+        </div>
+        <div>
+          <div id="qvCat" style="font-size: 11px; font-weight: 700; color: var(--purple); text-transform: uppercase; margin-bottom: 4px;">Small Deco</div>
+          <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 12px;">
+            <span id="qvPrice" style="font-family: 'Manrope', sans-serif; font-size: 22px; font-weight: 800; color: var(--ink);">$22.99</span>
+            <span id="qvCompare" style="font-size: 13px; color: #a0a095; text-decoration: line-through;">$38.00</span>
+          </div>
+          <p id="qvDesc" style="color: var(--muted); font-size: 13px; line-height: 1.6; margin: 0 0 16px;">
+            Curated item from Odette.
+          </p>
+
+          <div style="margin-bottom: 16px;">
+            <div style="font-size: 12px; font-weight: 700; margin-bottom: 6px;">Available Options:</div>
+            <div id="qvVariants" style="display: flex; flex-wrap: wrap; gap: 6px;"></div>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 20px;">
+            <div class="qty-controls" style="height: 38px;">
+              <button type="button" id="qvMinus" style="width: 32px; height: 38px;">−</button>
+              <span id="qvQty" style="font-size: 14px; min-width: 30px;">1</span>
+              <button type="button" id="qvPlus" style="width: 32px; height: 38px;">+</button>
+            </div>
+            <button type="button" class="primary-btn" id="qvAddBtn" style="flex: 1; height: 38px;">Add to Shopping Bag</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Wishlist Slide-Over Drawer -->
+<div class="drawer-backdrop" id="wishlistDrawerBackdrop">
+  <div class="slide-drawer">
+    <div class="drawer-header">
+      <h3>♥ Your Saved Wishlist (<span id="wishlistHeaderCount">0</span>)</h3>
+      <button type="button" class="close-btn" id="closeWishlistBtn" aria-label="Close wishlist">✕</button>
+    </div>
+    <div class="drawer-body" id="wishlistItemsList">
+      <!-- Populated dynamically -->
+    </div>
+    <div class="drawer-footer" style="display: flex; gap: 10px;">
+      <button type="button" class="primary-btn" id="wishlistShopBtn" style="flex: 1;">Continue Exploring</button>
+    </div>
+  </div>
+</div>
+
+<!-- Shopping Bag & Reservation Drawer -->
+<div class="drawer-backdrop" id="bagDrawerBackdrop">
+  <div class="slide-drawer">
+    <div class="drawer-header">
+      <h3>🛍️ Shopping Bag (<span id="drawerBagCount">0</span>)</h3>
+      <button type="button" class="close-btn" id="closeBagBtn" aria-label="Close bag">✕</button>
+    </div>
+    <div class="drawer-body">
+      <div id="orderConfirmedBanner" style="display: none; background: var(--success-bg); border: 1px solid rgba(21,128,61,0.25); border-radius: 12px; padding: 14px; margin-bottom: 16px;">
+        <div style="font-weight: 700; color: var(--success); font-size: 14px; margin-bottom: 4px;">🎉 Reservation Confirmed!</div>
+        <div style="font-size: 12px; color: #166534; line-height: 1.5;">
+          Your order ID is <strong id="confirmedOrderId">ORD-8495</strong>. Our dispatch team will contact you via phone/WhatsApp before Yalidine dispatch.
+        </div>
+      </div>
+
+      <div id="bagItemsList">
+        <!-- Populated dynamically -->
+      </div>
+
+      <div style="margin: 20px 0; padding-top: 16px; border-top: 1px solid var(--line);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <span style="font-size: 13.5px; color: var(--muted);">Estimated Subtotal</span>
+          <span id="bagTotalText" style="font-family: 'Manrope', sans-serif; font-size: 18px; font-weight: 800; color: var(--ink);">$0.00</span>
+        </div>
+        <div style="font-size: 11.5px; color: var(--success); font-weight: 600;">
+          ✓ Free Wilaya Delivery applied on reservations over 5,000 DZD
+        </div>
+      </div>
+
+      <!-- Quick Reservation Form -->
+      <div style="background: var(--white); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-top: 10px;">
+        <h4 style="font-family: 'Manrope', sans-serif; font-size: 14px; margin: 0 0 12px; display: flex; align-items: center; gap: 6px;">
+          📦 Instant Cash-on-Delivery Reservation
+        </h4>
+        <form id="checkoutForm">
+          <div class="form-group">
+            <label for="custName">Full Name *</label>
+            <input type="text" id="custName" required placeholder="e.g. Amira Benali">
+          </div>
+          <div class="form-group">
+            <label for="custPhone">Phone Number / WhatsApp *</label>
+            <input type="tel" id="custPhone" required placeholder="0550 12 34 56">
+          </div>
+          <div class="form-group">
+            <label for="custCity">Wilaya / City *</label>
+            <input type="text" id="custCity" required placeholder="e.g. 16 - Alger (or Batna, Oran...)">
+          </div>
+          <div class="form-group">
+            <label for="custAddress">Delivery Address / Yalidine Desk *</label>
+            <input type="text" id="custAddress" required placeholder="Street address or stop-desk location">
+          </div>
+          <div class="form-group">
+            <label for="custSocial">Instagram / Notes (Optional)</label>
+            <input type="text" id="custSocial" placeholder="@username or delivery preferences">
+          </div>
+          <button type="submit" class="primary-btn" id="confirmReservationBtn" style="width: 100%; padding: 13px; font-size: 13.5px;">
+            Confirm Reservation (Pay on Delivery)
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Client Registration & Authentication Modal Dialog -->
+<div class="modal-backdrop" id="authModalBackdrop">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div class="logo" style="font-size: 22px;">Odette<span>.</span> Client Portal</div>
+      <button type="button" class="close-btn" id="closeAuthBtn" aria-label="Close window">✕</button>
+    </div>
+    <div class="modal-body">
+      <!-- Tabs -->
+      <div class="auth-tabs" id="authTabsContainer">
+        <button type="button" class="auth-tab-btn active" id="tabRegisterBtn">Create Account</button>
+        <button type="button" class="auth-tab-btn" id="tabSignInBtn">Demo Sign In</button>
+      </div>
+
+      <!-- Demonstration Advisory Banner -->
+      <div class="auth-disclaimer">
+        <strong>🔒 Odette Client Prototype:</strong> This is a front-end client demonstration. No real passwords or sensitive credentials are saved to external databases or stored in unsecure storage.
+      </div>
+
+      <!-- Registration Form -->
+      <form id="regForm">
+        <div class="form-group">
+          <label for="regFullName">Full Name *</label>
+          <input type="text" id="regFullName" placeholder="e.g. Lina Benali" autocomplete="name">
+          <div class="form-error" id="regFullNameError">Please enter your full name (minimum 3 letters).</div>
+        </div>
+
+        <div class="form-group">
+          <label for="regEmail">Email Address *</label>
+          <input type="email" id="regEmail" placeholder="lina@example.com" autocomplete="email">
+          <div class="form-error" id="regEmailError">Please enter a valid email address.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="regPassword">Password *</label>
+          <div class="input-with-action">
+            <input type="password" id="regPassword" placeholder="Minimum 8 characters" autocomplete="new-password">
+            <button type="button" class="toggle-pwd-btn" id="toggleRegPwdBtn" title="Show / Hide password">👁️</button>
+          </div>
+          <div class="form-error" id="regPasswordError">Password must be at least 8 characters long.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="regConfirmPassword">Confirm Password *</label>
+          <div class="input-with-action">
+            <input type="password" id="regConfirmPassword" placeholder="Re-type your password" autocomplete="new-password">
+            <button type="button" class="toggle-pwd-btn" id="toggleRegConfirmPwdBtn" title="Show / Hide password">👁️</button>
+          </div>
+          <div class="form-error" id="regConfirmError">Passwords do not match. Please verify.</div>
+        </div>
+
+        <div class="form-group" style="margin-top: 14px;">
+          <label class="form-checkbox">
+            <input type="checkbox" id="regTerms">
+            <span>I agree to Odette's Client Terms of Service and Cash-on-Delivery Reservation Policy.</span>
+          </label>
+          <div class="form-error" id="regTermsError">You must accept the terms to complete registration.</div>
+        </div>
+
+        <button type="submit" class="primary-btn" id="regSubmitBtn" style="width: 100%; margin-top: 12px; padding: 12px;">
+          <span id="regSubmitText">Create Client Profile</span>
+        </button>
+
+        <div style="text-align: center; margin-top: 16px; font-size: 12.5px; color: var(--muted);">
+          Already have an account? <button type="button" class="text-btn" id="switchSignInBtn">Sign In here</button>
+        </div>
+      </form>
+
+      <!-- Demo Sign-In Form -->
+      <form id="signInForm" style="display: none;">
+        <div class="form-group">
+          <label for="loginEmail">Email Address *</label>
+          <input type="email" id="loginEmail" placeholder="e.g. lina@example.com" autocomplete="email">
+          <div class="form-error" id="loginEmailError">Please enter your email.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="loginPassword">Password *</label>
+          <div class="input-with-action">
+            <input type="password" id="loginPassword" placeholder="Enter password" autocomplete="current-password">
+            <button type="button" class="toggle-pwd-btn" id="toggleLoginPwdBtn" title="Show / Hide password">👁️</button>
+          </div>
+          <div class="form-error" id="loginPasswordError">Please enter your password.</div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 14px;">
+          <button type="button" class="text-btn" id="demoPrefillBtn" style="font-size: 11.5px;">Quick Fill Demo Client</button>
+        </div>
+
+        <button type="submit" class="primary-btn" id="signInSubmitBtn" style="width: 100%; padding: 12px;">
+          <span id="signInSubmitText">Sign In to Odette</span>
+        </button>
+
+        <div style="text-align: center; margin-top: 16px; font-size: 12.5px; color: var(--muted);">
+          Don't have an account yet? <button type="button" class="text-btn" id="switchRegBtn">Create one now</button>
+        </div>
+      </form>
+
+      <!-- Registration / Auth Success State Card -->
+      <div class="auth-success-card" id="regSuccessBox">
+        <div class="auth-success-icon">✨</div>
+        <h4 id="authSuccessTitle">Welcome to Odette, Lina!</h4>
+        <p id="authSuccessMsg">
+          Your client profile has been registered in prototype mode. You can now save favorites to your wishlist, browse options, and reserve items with instant checkout.
+        </p>
+        <button type="button" class="primary-btn" id="authContinueBtn" style="padding: 12px 28px;">
+          Start Shopping
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Order Tracking Modal Dialog -->
+<div class="modal-backdrop" id="trackModalBackdrop">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3 id="trackModalTitle">📦 Track Your Reservation</h3>
+      <button type="button" class="close-btn" id="closeTrackBtn" aria-label="Close modal">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="color: var(--muted); font-size: 13px; margin: 0 0 16px;">
+        Enter your 7-character Reservation ID (e.g. <strong>ORD-8492</strong>) to view Yalidine dispatch status.
+      </p>
+      <form id="trackForm" style="display: flex; gap: 8px; margin-bottom: 16px;">
+        <input type="text" id="trackIdInput" placeholder="ORD-8492" required style="flex:1; border:1px solid var(--line); border-radius:9px; padding:10px 14px; text-transform:uppercase; font-family:monospace; font-size:13px;">
+        <button type="submit" class="primary-btn">Look Up</button>
+      </form>
+      <div id="trackResultBox" style="display:none; background:var(--bg); border:1px solid var(--line); border-radius:12px; padding:16px; font-size:12.5px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastBox"></div>
+
+<script>
+(function() {
+  // Storage helpers with try/catch
+  function loadLocal(k, fallback) {
+    try {
+      const v = localStorage.getItem(k);
+      return v ? JSON.parse(v) : fallback;
+    } catch(e) {
+      return fallback;
+    }
+  }
+
+  function saveLocal(k, val) {
+    try {
+      localStorage.setItem(k, JSON.stringify(val));
+    } catch(e) {}
+  }
+
+  function showToast(msg) {
+    const box = document.getElementById("toastBox");
+    const t = document.createElement("div");
+    t.className = "toast";
+    t.textContent = msg;
+    box.appendChild(t);
+    setTimeout(() => {
+      t.style.opacity = "0";
+      t.style.transform = "translateY(10px)";
+      t.style.transition = "all 0.2s";
+      setTimeout(() => { if (t.parentNode) t.parentNode.removeChild(t); }, 200);
+    }, 2800);
+  }
+
+  // Curated Images Map
+  const IMAGE_MAP = {
+    decoVase: "https://images.unsplash.com/photo-1612196808214-b8e1d6145a8c?auto=format&fit=crop&w=800&q=80",
+    lamp: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=80",
+    diffuser: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=800&q=80",
+    hoodie: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80",
+    accessories: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80",
+    bundle: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80"
+  };
+
+  const DEFAULT_PRODUCTS = [
+    {
+      id: 1,
+      title: "Nordic Ribbed Ceramic Vase & Brass Candle Set",
+      category: "Small Deco",
+      image: IMAGE_MAP.decoVase,
+      imageKey: "decoVase",
+      supplierCost: 6.40,
+      price: 22.99,
+      comparePrice: 38.00,
+      rating: 4.9,
+      sold: 1420,
+      badge: "BESTSELLER",
+      stockStatus: "in_stock",
+      variants: ["Warm Cream", "Matte Terracotta", "Sand Beige"],
+      description: "Hand-finished matte cream ribbed ceramic donut vase paired with a geometric brushed-brass tea light holder. Perfect center aesthetic for coffee tables or shelving."
+    },
+    {
+      id: 2,
+      title: "Solis 180° Golden Hour Sunset Projection Lamp",
+      category: "Small Deco",
+      image: IMAGE_MAP.lamp,
+      imageKey: "lamp",
+      supplierCost: 5.20,
+      price: 19.99,
+      comparePrice: 34.99,
+      rating: 4.8,
+      sold: 2310,
+      badge: "LOW STOCK",
+      stockStatus: "low_stock",
+      variants: ["Warm Sunset", "Rainbow Violet", "Golden Sun"],
+      description: "High-transmittance optical glass lens with aluminum rotation head. Casts a soothing halo glow across your bedroom or studio wall."
+    },
+    {
+      id: 3,
+      title: "ZenMist Ceramic Ultrasonic Aroma Diffuser",
+      category: "Small Deco",
+      image: IMAGE_MAP.diffuser,
+      imageKey: "diffuser",
+      supplierCost: 9.10,
+      price: 28.99,
+      comparePrice: 45.00,
+      rating: 4.9,
+      sold: 890,
+      badge: "PRE-ORDER",
+      stockStatus: "preorder",
+      variants: ["Nordic Stone White", "Slate Charcoal", "Desert Clay"],
+      description: "Whisper-quiet ceramic ultrasonic diffuser featuring ambient amber LED lighting, automatic shut-off, and 6-hour continuous aromatherapeutic mist."
+    },
+    {
+      id: 4,
+      title: "Odette Heavyweight Oversized Sand Hoodie",
+      category: "Clothes",
+      image: IMAGE_MAP.hoodie,
+      imageKey: "hoodie",
+      supplierCost: 11.80,
+      price: 34.99,
+      comparePrice: 54.99,
+      rating: 5.0,
+      sold: 640,
+      badge: "BESTSELLER",
+      stockStatus: "in_stock",
+      variants: ["Small", "Medium", "Large", "X-Large"],
+      description: "460 GSM custom-milled heavyweight organic cotton fleece. Drop shoulder silhouette with double-lined hood and tonal embroidered Odette emblem."
+    },
+    {
+      id: 5,
+      title: "Minimalist Crossbody Bag, Retro Shades & Ring Set",
+      category: "Accessories",
+      image: IMAGE_MAP.accessories,
+      imageKey: "accessories",
+      supplierCost: 8.20,
+      price: 26.99,
+      comparePrice: 42.99,
+      rating: 4.8,
+      sold: 1150,
+      badge: "POPULAR",
+      stockStatus: "in_stock",
+      variants: ["Buttercream Leather", "Noir Black", "Cognac Brown"],
+      description: "Supple vegan leather crescent bag with adjustable wide strap, paired with tortoiseshell retro UV400 acetate sunglasses and stackable signet rings."
+    },
+    {
+      id: 6,
+      title: "Nomad Matte Everyday Carry & Desk Deco Kit",
+      category: "Accessories",
+      image: IMAGE_MAP.bundle,
+      imageKey: "bundle",
+      supplierCost: 14.50,
+      price: 39.99,
+      comparePrice: 65.00,
+      rating: 4.9,
+      sold: 430,
+      badge: "LIMITED",
+      stockStatus: "in_stock",
+      variants: ["Curated Cream Trio", "Mono Charcoal Set"],
+      description: "Complete curated workstation bundle including the Odette ceramic vase, amber sunset mini-lamp, and vegan leather accessory tray."
+    }
+  ];
+
+  // Application State
+  const state = {
+    products: loadLocal("odette_products_db", DEFAULT_PRODUCTS),
+    cart: loadLocal("odette_cart_items", []),
+    savedIds: loadLocal("odette_saved_wishlist", []),
+    selectedVariants: {},
+    category: "all",
+    search: "",
+    sort: "featured",
+    currency: "DZD",
+    dzdRate: 135,
+    eurRate: 0.92,
+    currentUser: null, // Demo in-memory user
+    qvProdId: null,
+    qvVariant: null,
+    qvQty: 1
+  };
+
+  // Price Formatter
+  function formatPrice(usdAmount) {
+    const val = Number(usdAmount) || 0;
+    if (state.currency === "DZD") {
+      const dzd = Math.round(val * state.dzdRate);
+      return `${dzd.toLocaleString()} د.ج`;
+    }
+    if (state.currency === "EUR") {
+      const eur = (val * state.eurRate).toFixed(2);
+      return `€${eur}`;
+    }
+    return `$${val.toFixed(2)}`;
+  }
+
+  function getStockInfo(status, badge) {
+    if (status === "low_stock") {
+      return { tag: badge || "Low Stock", tagClass: "stock-tag low-stock", cta: "Reserve • Only 3 Left", canBuy: true };
+    }
+    if (status === "preorder") {
+      return { tag: badge || "Pre-Order", tagClass: "stock-tag preorder", cta: "Pre-Order Piece", canBuy: true };
+    }
+    return { tag: badge || "In Stock", tagClass: "stock-tag in-stock", cta: "Quick Add to Bag", canBuy: true };
+  }
+
+  // Update Badges & Counts
+  function updateCounters() {
+    const savedCount = state.savedIds.length;
+    document.getElementById("savedCountBadge").textContent = String(savedCount);
+    document.getElementById("wishlistHeaderCount").textContent = String(savedCount);
+    const mobileSaved = document.getElementById("mobileSavedCount");
+    if (mobileSaved) mobileSaved.textContent = String(savedCount);
+
+    const bagCount = state.cart.reduce((sum, item) => sum + item.qty, 0);
+    document.getElementById("bagCountBadge").textContent = String(bagCount);
+    document.getElementById("drawerBagCount").textContent = String(bagCount);
+  }
+
+  // Render Product Catalog
+  function renderProducts() {
+    updateCounters();
+
+    const q = state.search.trim().toLowerCase();
+    let filtered = state.products.filter(p => {
+      if (state.category === "saved") {
+        if (!state.savedIds.includes(p.id)) return false;
+      } else if (state.category !== "all" && p.category !== state.category) {
+        return false;
+      }
+      if (!q) return true;
+      return (
+        (p.title && p.title.toLowerCase().includes(q)) ||
+        (p.category && p.category.toLowerCase().includes(q)) ||
+        (p.description && p.description.toLowerCase().includes(q))
+      );
+    });
+
+    if (state.sort === "price-asc") filtered.sort((a, b) => Number(a.price) - Number(b.price));
+    if (state.sort === "price-desc") filtered.sort((a, b) => Number(b.price) - Number(a.price));
+    if (state.sort === "rating") filtered.sort((a, b) => Number(b.rating || 4.9) - Number(a.rating || 4.9));
+
+    const resultsEl = document.getElementById("resultsText");
+    const catLabel = state.category === "all" ? "all curated pieces" : state.category === "saved" ? "your saved wishlist" : state.category;
+    resultsEl.textContent = `Showing ${filtered.length} of ${state.products.length} (${catLabel})${q ? ` matching "${state.search}"` : ""}`;
+
+    const grid = document.getElementById("productGrid");
+    if (filtered.length === 0) {
+      grid.innerHTML = `
+        <div class="empty-state">
+          <h3>No pieces found</h3>
+          <p>We couldn't find items matching your active filter. Try exploring our complete collection.</p>
+          <button type="button" class="primary-btn" id="emptyResetBtn">Show All Pieces</button>
+        </div>
+      `;
+      const btn = document.getElementById("emptyResetBtn");
+      if (btn) {
+        btn.addEventListener("click", () => {
+          state.category = "all";
+          state.search = "";
+          document.getElementById("searchInput").value = "";
+          syncCategoryButtons();
+          renderProducts();
+        });
+      }
+      return;
+    }
+
+    grid.innerHTML = filtered.map(p => {
+      const variants = Array.isArray(p.variants) && p.variants.length ? p.variants : ["Standard"];
+      const activeVar = state.selectedVariants[p.id] || variants[0];
+      const stock = getStockInfo(p.stockStatus || "in_stock", p.badge);
+      const isSaved = state.savedIds.includes(p.id);
+      const compareVal = Number(p.comparePrice || 0);
+      const imgSrc = p.image || IMAGE_MAP[p.imageKey] || IMAGE_MAP.decoVase;
+
+      return `
+        <article class="product-card">
+          <div class="card-photo">
+            <img src="${imgSrc}" alt="${p.title}" data-qv="${p.id}" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22600%22 viewBox=%220 0 600 600%22%3E%3Crect fill=%22%23eee9ff%22 width=%22600%22 height=%22600%22/%3E%3Ctext fill=%22%236d4bd1%22 font-family=%22sans-serif%22 font-size=%2226%22 font-weight=%22600%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3EOdette Piece%3C/text%3E%3C/svg%3E';">
+            <span class="${stock.tagClass}">${stock.tag}</span>
+            <button type="button" class="heart-btn ${isSaved ? "saved" : ""}" data-heart="${p.id}" aria-label="Toggle wishlist">
+              ${isSaved ? "♥" : "♡"}
+            </button>
+            <button type="button" class="quick-add-btn" data-add="${p.id}">
+              ${stock.cta}
+            </button>
+          </div>
+
+          <div class="card-details">
+            <div class="card-cat">${p.category || "Boutique"}</div>
+            <h3 class="card-title" data-qv="${p.id}">${p.title}</h3>
+            <div class="card-rating">
+              <span>★</span> ${p.rating || "4.9"} (${p.sold || 120} reserved)
+            </div>
+
+            <div class="card-footer">
+              <div>
+                <span class="price-tag">${formatPrice(p.price)}</span>
+                ${compareVal > p.price ? `<span class="compare-price">${formatPrice(compareVal)}</span>` : ""}
+              </div>
+            </div>
+
+            <div class="variant-chips">
+              ${variants.map(v => `
+                <button type="button" class="variant-chip ${v === activeVar ? "active" : ""}" data-var-prod="${p.id}" data-var-val="${v}">
+                  ${v}
+                </button>
+              `).join("")}
+            </div>
+          </div>
+        </article>
+      `;
+    }).join("");
+  }
+
+  function syncCategoryButtons() {
+    document.querySelectorAll(".category-btn").forEach(btn => {
+      btn.classList.toggle("active", btn.getAttribute("data-cat") === state.category);
+    });
+    document.querySelectorAll("nav.desktop-nav a[data-nav-cat]").forEach(link => {
+      link.classList.toggle("active", link.getAttribute("data-nav-cat") === state.category);
+    });
+  }
+
+  // Render Shopping Bag
+  function renderBag() {
+    updateCounters();
+    const listEl = document.getElementById("bagItemsList");
+    if (state.cart.length === 0) {
+      listEl.innerHTML = `
+        <div style="text-align:center; padding:36px 14px; background:var(--white); border:1px solid var(--line); border-radius:14px; color:var(--muted); font-size:13px;">
+          <div style="font-size:32px; margin-bottom:8px;">🛍️</div>
+          <strong>Your bag is currently empty</strong>
+          <p style="margin:6px 0 16px; font-size:12px;">Explore our pieces and tap "Quick Add" to place your reservation.</p>
+          <button type="button" class="primary-btn" id="bagExploreBtn" style="padding:9px 18px; font-size:12px;">Browse Pieces</button>
+        </div>
+      `;
+      const expBtn = document.getElementById("bagExploreBtn");
+      if (expBtn) {
+        expBtn.addEventListener("click", () => {
+          document.getElementById("bagDrawerBackdrop").classList.remove("open");
+          document.getElementById("shopSection").scrollIntoView({ behavior: "smooth" });
+        });
+      }
+    } else {
+      listEl.innerHTML = state.cart.map((item, idx) => `
+        <div class="bag-item">
+          <img src="${item.image}" alt="${item.title}">
+          <div class="bag-item-info">
+            <h4>${item.title}</h4>
+            <small>Option: <strong>${item.variant}</strong></small>
+            <div class="bag-item-price">${formatPrice(item.price * item.qty)}</div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:flex-end; gap:6px;">
+            <button type="button" data-rm-bag="${idx}" style="border:none; background:none; color:var(--muted); font-size:11.5px; cursor:pointer;">✕ Remove</button>
+            <div class="qty-controls">
+              <button type="button" data-qty-delta="-1" data-qty-idx="${idx}">−</button>
+              <span>${item.qty}</span>
+              <button type="button" data-qty-delta="1" data-qty-idx="${idx}">+</button>
+            </div>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    const totalUsd = state.cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+    document.getElementById("bagTotalText").textContent = formatPrice(totalUsd);
+    saveLocal("odette_cart_items", state.cart);
+  }
+
+  // Add Item to Bag
+  function addToBag(prod, variant, qty) {
+    const chosenVar = variant || (prod.variants && prod.variants[0]) || "Standard";
+    const imgSrc = prod.image || IMAGE_MAP[prod.imageKey] || IMAGE_MAP.decoVase;
+    const existing = state.cart.find(i => i.id === prod.id && i.variant === chosenVar);
+    if (existing) {
+      existing.qty += qty;
+    } else {
+      state.cart.push({
+        id: prod.id,
+        title: prod.title,
+        price: Number(prod.price),
+        image: imgSrc,
+        variant: chosenVar,
+        qty: qty
+      });
+    }
+    renderBag();
+    showToast(`🛍️ Added "${prod.title}" (${chosenVar}) to bag`);
+  }
+
+  // Render Wishlist Drawer
+  function renderWishlist() {
+    updateCounters();
+    const listEl = document.getElementById("wishlistItemsList");
+    const savedProducts = state.products.filter(p => state.savedIds.includes(p.id));
+
+    if (savedProducts.length === 0) {
+      listEl.innerHTML = `
+        <div style="text-align:center; padding:36px 14px; background:var(--white); border:1px solid var(--line); border-radius:14px; color:var(--muted); font-size:13px;">
+          <div style="font-size:32px; margin-bottom:8px;">♥</div>
+          <strong>Your wishlist is empty</strong>
+          <p style="margin:6px 0 16px; font-size:12px;">Click the heart icon on any piece to save your favorites here.</p>
+        </div>
+      `;
+    } else {
+      listEl.innerHTML = savedProducts.map(p => {
+        const imgSrc = p.image || IMAGE_MAP[p.imageKey] || IMAGE_MAP.decoVase;
+        return `
+          <div class="bag-item">
+            <img src="${imgSrc}" alt="${p.title}">
+            <div class="bag-item-info">
+              <h4>${p.title}</h4>
+              <small>${p.category}</small>
+              <div class="bag-item-price">${formatPrice(p.price)}</div>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:flex-end; gap:6px;">
+              <button type="button" data-rm-wish="${p.id}" style="border:none; background:none; color:var(--muted); font-size:11.5px; cursor:pointer;">✕ Remove</button>
+              <button type="button" class="primary-btn" data-wish-to-bag="${p.id}" style="padding:6px 10px; font-size:11px; border-radius:6px;">
+                Move to Bag
+              </button>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+  }
+
+  // Quick View Modal
+  function openQuickView(prod) {
+    state.qvProdId = prod.id;
+    const variants = Array.isArray(prod.variants) && prod.variants.length ? prod.variants : ["Standard"];
+    state.qvVariant = state.selectedVariants[prod.id] || variants[0];
+    state.qvQty = 1;
+
+    const stock = getStockInfo(prod.stockStatus || "in_stock", prod.badge);
+    const imgSrc = prod.image || IMAGE_MAP[prod.imageKey] || IMAGE_MAP.decoVase;
+
+    document.getElementById("qvImg").src = imgSrc;
+    const qvTag = document.getElementById("qvTag");
+    qvTag.textContent = stock.tag;
+    qvTag.className = stock.tagClass;
+
+    document.getElementById("qvCat").textContent = prod.category || "Boutique";
+    document.getElementById("qvTitle").textContent = prod.title;
+    document.getElementById("qvPrice").textContent = formatPrice(prod.price);
+    const compareVal = Number(prod.comparePrice || 0);
+    document.getElementById("qvCompare").textContent = compareVal > prod.price ? formatPrice(compareVal) : "";
+    document.getElementById("qvDesc").textContent = prod.description || "Curated item from Odette.";
+    document.getElementById("qvQty").textContent = "1";
+
+    const addBtn = document.getElementById("qvAddBtn");
+    addBtn.textContent = stock.cta;
+
+    document.getElementById("qvVariants").innerHTML = variants.map(v => `
+      <button type="button" class="variant-chip ${v === state.qvVariant ? "active" : ""}" data-qv-var="${v}">
+        ${v}
+      </button>
+    `).join("");
+
+    document.getElementById("quickViewBackdrop").classList.add("open");
+  }
+
+  // Close all dialogs & drawers helper
+  function closeAllModals() {
+    document.querySelectorAll(".drawer-backdrop, .modal-backdrop").forEach(el => {
+      el.classList.remove("open");
+    });
+    document.getElementById("mobileNav").classList.remove("open");
+  }
+
+  // Auth & Client Profile UI Updates
+  function updateAuthUI() {
+    const label = document.getElementById("authBtnLabel");
+    if (state.currentUser && state.currentUser.name) {
+      label.textContent = state.currentUser.name.split(" ")[0];
+      document.getElementById("openAuthBtn").style.background = "var(--purple)";
+      document.getElementById("openAuthBtn").style.color = "white";
+    } else {
+      label.textContent = "Sign In / Register";
+      document.getElementById("openAuthBtn").style.background = "";
+      document.getElementById("openAuthBtn").style.color = "";
+    }
+  }
+
+  // Event Listeners Initialization
+  function initEvents() {
+    // Escape key closes any active dialog
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" || e.keyCode === 27) {
+        closeAllModals();
+      }
+    });
+
+    // Backdrop click dismissals
+    document.querySelectorAll(".drawer-backdrop, .modal-backdrop").forEach(bd => {
+      bd.addEventListener("click", (e) => {
+        if (e.target === bd) {
+          bd.classList.remove("open");
+        }
+      });
+    });
+
+    // Close buttons
+    document.getElementById("closeQvBtn").addEventListener("click", () => {
+      document.getElementById("quickViewBackdrop").classList.remove("open");
+    });
+    document.getElementById("closeBagBtn").addEventListener("click", () => {
+      document.getElementById("bagDrawerBackdrop").classList.remove("open");
+    });
+    document.getElementById("closeWishlistBtn").addEventListener("click", () => {
+      document.getElementById("wishlistDrawerBackdrop").classList.remove("open");
+    });
+    document.getElementById("closeAuthBtn").addEventListener("click", () => {
+      document.getElementById("authModalBackdrop").classList.remove("open");
+    });
+    document.getElementById("closeTrackBtn").addEventListener("click", () => {
+      document.getElementById("trackModalBackdrop").classList.remove("open");
+    });
+
+    // Currency Switcher
+    document.getElementById("currencySelect").addEventListener("change", (e) => {
+      state.currency = e.target.value;
+      renderProducts();
+      renderBag();
+      renderWishlist();
+    });
+
+    // Open Drawers
+    const openBag = () => {
+      renderBag();
+      document.getElementById("orderConfirmedBanner").style.display = "none";
+      document.getElementById("bagDrawerBackdrop").classList.add("open");
+    };
+    document.getElementById("openBagBtn").addEventListener("click", openBag);
+    document.getElementById("footerOpenBagBtn").addEventListener("click", openBag);
+
+    const openWishlist = () => {
+      renderWishlist();
+      document.getElementById("wishlistDrawerBackdrop").classList.add("open");
+    };
+    document.getElementById("openWishlistBtn").addEventListener("click", openWishlist);
+    document.getElementById("footerWishlistBtn").addEventListener("click", openWishlist);
+    document.getElementById("mobileWishlistBtn").addEventListener("click", () => {
+      document.getElementById("mobileNav").classList.remove("open");
+      openWishlist();
+    });
+    document.getElementById("wishlistShopBtn").addEventListener("click", () => {
+      document.getElementById("wishlistDrawerBackdrop").classList.remove("open");
+      document.getElementById("shopSection").scrollIntoView({ behavior: "smooth" });
+    });
+
+    // Mobile Nav Toggle
+    document.getElementById("mobileMenuBtn").addEventListener("click", () => {
+      document.getElementById("mobileNav").classList.toggle("open");
+    });
+
+    // Navigation Category Links
+    document.querySelectorAll("[data-nav-cat], [data-footer-cat]").forEach(el => {
+      el.addEventListener("click", () => {
+        const cat = el.getAttribute("data-nav-cat") || el.getAttribute("data-footer-cat");
+        state.category = cat;
+        syncCategoryButtons();
+        renderProducts();
+        document.getElementById("mobileNav").classList.remove("open");
+        document.getElementById("shopSection").scrollIntoView({ behavior: "smooth" });
+      });
+    });
+
+    // Search Form & Input
+    document.getElementById("heroSearchForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      state.search = document.getElementById("searchInput").value;
+      renderProducts();
+      document.getElementById("shopSection").scrollIntoView({ behavior: "smooth" });
+    });
+    document.getElementById("searchInput").addEventListener("input", (e) => {
+      state.search = e.target.value;
+      renderProducts();
+    });
+
+    // Suggestion Pills
+    document.getElementById("suggestionPills").addEventListener("click", (e) => {
+      const btn = e.target.closest(".suggestion");
+      if (!btn) return;
+      const term = btn.getAttribute("data-suggest");
+      document.getElementById("searchInput").value = term;
+      state.search = term;
+      state.category = "all";
+      syncCategoryButtons();
+      renderProducts();
+      document.getElementById("shopSection").scrollIntoView({ behavior: "smooth" });
+    });
+
+    // Category Buttons Bar
+    document.getElementById("categoryButtons").addEventListener("click", (e) => {
+      const btn = e.target.closest(".category-btn");
+      if (!btn) return;
+      state.category = btn.getAttribute("data-cat");
+      syncCategoryButtons();
+      renderProducts();
+    });
+
+    // Sort Dropdown
+    document.getElementById("sortSelect").addEventListener("change", (e) => {
+      state.sort = e.target.value;
+      renderProducts();
+    });
+
+    // Reset Filters
+    document.getElementById("resetFiltersBtn").addEventListener("click", () => {
+      state.category = "all";
+      state.search = "";
+      state.sort = "featured";
+      document.getElementById("searchInput").value = "";
+      document.getElementById("sortSelect").value = "featured";
+      syncCategoryButtons();
+      renderProducts();
+    });
+
+    // Product Grid Click Delegation (Hearts, Variants, Quick Add, Quick View)
+    document.getElementById("productGrid").addEventListener("click", (e) => {
+      const heartBtn = e.target.closest("[data-heart]");
+      if (heartBtn) {
+        const id = Number(heartBtn.getAttribute("data-heart"));
+        const idx = state.savedIds.indexOf(id);
+        if (idx >= 0) {
+          state.savedIds.splice(idx, 1);
+          showToast("Removed from Wishlist");
+        } else {
+          state.savedIds.push(id);
+          showToast("♥ Saved to your Wishlist!");
+        }
+        saveLocal("odette_saved_wishlist", state.savedIds);
+        renderProducts();
+        return;
+      }
+
+      const varBtn = e.target.closest("[data-var-prod]");
+      if (varBtn) {
+        const id = Number(varBtn.getAttribute("data-var-prod"));
+        state.selectedVariants[id] = varBtn.getAttribute("data-var-val");
+        renderProducts();
+        return;
+      }
+
+      const addBtn = e.target.closest("[data-add]");
+      if (addBtn) {
+        const id = Number(addBtn.getAttribute("data-add"));
+        const prod = state.products.find(p => p.id === id);
+        if (prod) addToBag(prod, state.selectedVariants[id], 1);
+        return;
+      }
+
+      const qvTrigger = e.target.closest("[data-qv]");
+      if (qvTrigger) {
+        const id = Number(qvTrigger.getAttribute("data-qv"));
+        const prod = state.products.find(p => p.id === id);
+        if (prod) openQuickView(prod);
+      }
+    });
+
+    // Quick View Controls
+    document.getElementById("qvVariants").addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-qv-var]");
+      if (!btn) return;
+      state.qvVariant = btn.getAttribute("data-qv-var");
+      document.querySelectorAll("[data-qv-var]").forEach(b => {
+        b.classList.toggle("active", b.getAttribute("data-qv-var") === state.qvVariant);
+      });
+    });
+    document.getElementById("qvMinus").addEventListener("click", () => {
+      state.qvQty = Math.max(1, state.qvQty - 1);
+      document.getElementById("qvQty").textContent = String(state.qvQty);
+    });
+    document.getElementById("qvPlus").addEventListener("click", () => {
+      state.qvQty += 1;
+      document.getElementById("qvQty").textContent = String(state.qvQty);
+    });
+    document.getElementById("qvAddBtn").addEventListener("click", () => {
+      const prod = state.products.find(p => p.id === state.qvProdId);
+      if (prod) {
+        addToBag(prod, state.qvVariant, state.qvQty);
+        document.getElementById("quickViewBackdrop").classList.remove("open");
+      }
+    });
+
+    // Bag List Quantity & Removal
+    document.getElementById("bagItemsList").addEventListener("click", (e) => {
+      const rmBtn = e.target.closest("[data-rm-bag]");
+      if (rmBtn) {
+        const idx = Number(rmBtn.getAttribute("data-rm-bag"));
+        state.cart.splice(idx, 1);
+        renderBag();
+        return;
+      }
+      const qtyBtn = e.target.closest("[data-qty-delta]");
+      if (qtyBtn) {
+        const idx = Number(qtyBtn.getAttribute("data-qty-idx"));
+        const delta = Number(qtyBtn.getAttribute("data-qty-delta"));
+        if (state.cart[idx]) {
+          state.cart[idx].qty = Math.max(1, state.cart[idx].qty + delta);
+          renderBag();
+        }
+      }
+    });
+
+    // Wishlist Drawer List Actions
+    document.getElementById("wishlistItemsList").addEventListener("click", (e) => {
+      const rmWish = e.target.closest("[data-rm-wish]");
+      if (rmWish) {
+        const id = Number(rmWish.getAttribute("data-rm-wish"));
+        const idx = state.savedIds.indexOf(id);
+        if (idx >= 0) {
+          state.savedIds.splice(idx, 1);
+          saveLocal("odette_saved_wishlist", state.savedIds);
+          renderWishlist();
+          renderProducts();
+          showToast("Item removed from Wishlist");
+        }
+        return;
+      }
+
+      const toBag = e.target.closest("[data-wish-to-bag]");
+      if (toBag) {
+        const id = Number(toBag.getAttribute("data-wish-to-bag"));
+        const prod = state.products.find(p => p.id === id);
+        if (prod) {
+          addToBag(prod, state.selectedVariants[id], 1);
+          const idx = state.savedIds.indexOf(id);
+          if (idx >= 0) {
+            state.savedIds.splice(idx, 1);
+            saveLocal("odette_saved_wishlist", state.savedIds);
+            renderWishlist();
+            renderProducts();
+          }
+        }
+      }
+    });
+
+    // Checkout Form Submission (Cash on Delivery Reservation)
+    document.getElementById("checkoutForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (state.cart.length === 0) {
+        showToast("Please add at least 1 piece to your bag first!");
+        return;
+      }
+      const customer = document.getElementById("custName").value.trim();
+      const phone = document.getElementById("custPhone").value.trim();
+      const city = document.getElementById("custCity").value.trim();
+      const address = document.getElementById("custAddress").value.trim();
+      const social = document.getElementById("custSocial").value.trim() || "Storefront Client";
+
+      const totalQty = state.cart.reduce((s, i) => s + i.qty, 0);
+      const totalUsd = state.cart.reduce((s, i) => s + i.price * i.qty, 0);
+      const totalDzd = Math.round(totalUsd * state.dzdRate);
+      const itemsSummary = state.cart.map(i => `${i.title} [${i.variant}] (x${i.qty})`).join(", ");
+
+      const newOrder = {
+        id: "ORD-" + Math.floor(1000 + Math.random() * 9000),
+        date: new Date().toISOString().slice(0, 10),
+        customer,
+        phone,
+        city,
+        address,
+        social,
+        itemsSummary,
+        totalQty,
+        totalUsd,
+        totalDzd,
+        status: "Confirmed",
+        notes: "Submitted via Odette Client Storefront"
+      };
+
+      const orders = loadLocal("odette_clients_db", []);
+      orders.unshift(newOrder);
+      saveLocal("odette_clients_db", orders);
+
+      state.cart = [];
+      document.getElementById("checkoutForm").reset();
+      renderBag();
+      document.getElementById("confirmedOrderId").textContent = newOrder.id;
+      document.getElementById("orderConfirmedBanner").style.display = "block";
+      showToast(`🎉 Reservation ${newOrder.id} confirmed!`);
+    });
+
+    // Order Tracking Modal
+    const openTrack = (e) => {
+      if (e) e.preventDefault();
+      document.getElementById("trackResultBox").style.display = "none";
+      document.getElementById("trackModalBackdrop").classList.add("open");
+    };
+    document.getElementById("navTrackBtn").addEventListener("click", openTrack);
+    document.getElementById("editorialTrackBtn").addEventListener("click", openTrack);
+    document.getElementById("footerTrackBtn").addEventListener("click", openTrack);
+    document.getElementById("mobileTrackBtn").addEventListener("click", () => {
+      document.getElementById("mobileNav").classList.remove("open");
+      openTrack();
+    });
+
+    document.getElementById("trackForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const code = document.getElementById("trackIdInput").value.trim().toUpperCase();
+      const orders = loadLocal("odette_clients_db", []);
+      const found = orders.find(o => String(o.id).toUpperCase() === code);
+      const box = document.getElementById("trackResultBox");
+      box.style.display = "block";
+
+      if (!found) {
+        box.innerHTML = `
+          <strong style="color:var(--danger); display:block; margin-bottom:4px;">No reservation found for "${code}"</strong>
+          <span style="color:var(--muted);">Check your Order ID or submit a new reservation through the shopping bag.</span>
+        `;
+        return;
+      }
+      box.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong style="font-family:monospace; font-size:13px;">${found.id}</strong>
+          <span style="padding:3px 8px; border-radius:20px; background:var(--light-purple); color:var(--purple); font-weight:700; font-size:10px;">${found.status || "Confirmed"}</span>
+        </div>
+        <div style="font-weight:600; margin-bottom:4px;">${found.itemsSummary}</div>
+        <div style="color:var(--muted);">Wilaya: <strong>${found.city}</strong> • Total: <strong>${found.totalDzd ? `${found.totalDzd} د.ج` : `$${found.totalUsd}`}</strong></div>
+      `;
+    });
+
+    // Client Registration & Auth Modal
+    const openAuth = () => {
+      document.getElementById("authModalBackdrop").classList.add("open");
+    };
+    document.getElementById("openAuthBtn").addEventListener("click", openAuth);
+    document.getElementById("footerAuthBtn").addEventListener("click", openAuth);
+    document.getElementById("mobileAuthBtn").addEventListener("click", () => {
+      document.getElementById("mobileNav").classList.remove("open");
+      openAuth();
+    });
+
+    // Auth Tabs
+    const showTab = (tab) => {
+      document.getElementById("regForm").style.display = tab === "reg" ? "block" : "none";
+      document.getElementById("signInForm").style.display = tab === "signin" ? "block" : "none";
+      document.getElementById("regSuccessBox").style.display = "none";
+      document.getElementById("tabRegisterBtn").classList.toggle("active", tab === "reg");
+      document.getElementById("tabSignInBtn").classList.toggle("active", tab === "signin");
+    };
+    document.getElementById("tabRegisterBtn").addEventListener("click", () => showTab("reg"));
+    document.getElementById("tabSignInBtn").addEventListener("click", () => showTab("signin"));
+    document.getElementById("switchSignInBtn").addEventListener("click", () => showTab("signin"));
+    document.getElementById("switchRegBtn").addEventListener("click", () => showTab("reg"));
+
+    // Show / Hide Password Controls
+    const setupPwdToggle = (btnId, inputId) => {
+      const btn = document.getElementById(btnId);
+      const inp = document.getElementById(inputId);
+      btn.addEventListener("click", () => {
+        const isPwd = inp.type === "password";
+        inp.type = isPwd ? "text" : "password";
+        btn.textContent = isPwd ? "🙈" : "👁️";
+      });
+    };
+    setupPwdToggle("toggleRegPwdBtn", "regPassword");
+    setupPwdToggle("toggleRegConfirmPwdBtn", "regConfirmPassword");
+    setupPwdToggle("toggleLoginPwdBtn", "loginPassword");
+
+    // Demo Sign-In Prefill
+    document.getElementById("demoPrefillBtn").addEventListener("click", () => {
+      document.getElementById("loginEmail").value = "lina.benali@example.com";
+      document.getElementById("loginPassword").value = "Odette2026!";
+    });
+
+    // Registration Form Validation & Submission
+    document.getElementById("regForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      let valid = true;
+      const fullName = document.getElementById("regFullName").value.trim();
+      const email = document.getElementById("regEmail").value.trim();
+      const pwd = document.getElementById("regPassword").value;
+      const confirmPwd = document.getElementById("regConfirmPassword").value;
+      const terms = document.getElementById("regTerms").checked;
+
+      // Reset errors
+      document.querySelectorAll("#regForm .form-error").forEach(err => err.classList.remove("visible"));
+
+      if (!fullName || fullName.length < 3) {
+        document.getElementById("regFullNameError").classList.add("visible");
+        valid = false;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email || !emailRegex.test(email)) {
+        document.getElementById("regEmailError").classList.add("visible");
+        valid = false;
+      }
+
+      if (!pwd || pwd.length < 8) {
+        document.getElementById("regPasswordError").classList.add("visible");
+        valid = false;
+      }
+
+      if (!confirmPwd || pwd !== confirmPwd) {
+        document.getElementById("regConfirmError").classList.add("visible");
+        valid = false;
+      }
+
+      if (!terms) {
+        document.getElementById("regTermsError").classList.add("visible");
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      // Simulate network request loading state
+      const submitBtn = document.getElementById("regSubmitBtn");
+      const submitText = document.getElementById("regSubmitText");
+      submitBtn.disabled = true;
+      submitText.textContent = "Creating Client Profile...";
+
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitText.textContent = "Create Client Profile";
+
+        // Store client in memory session
+        state.currentUser = { name: fullName, email: email };
+        updateAuthUI();
+
+        // Show Success Box
+        document.getElementById("regForm").style.display = "none";
+        document.getElementById("authSuccessTitle").textContent = `Welcome to Odette, ${fullName.split(" ")[0]}!`;
+        document.getElementById("authSuccessMsg").textContent = `Your client reservation profile for "${email}" is ready. You can browse, favorite pieces, and reserve with zero upfront payment.`;
+        document.getElementById("regSuccessBox").style.display = "block";
+        showToast(`✨ Account created for ${fullName}`);
+      }, 600);
+    });
+
+    // Sign-In Form Validation & Submission
+    document.getElementById("signInForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("loginEmail").value.trim();
+      const pwd = document.getElementById("loginPassword").value;
+      document.querySelectorAll("#signInForm .form-error").forEach(err => err.classList.remove("visible"));
+
+      let valid = true;
+      if (!email) {
+        document.getElementById("loginEmailError").classList.add("visible");
+        valid = false;
+      }
+      if (!pwd) {
+        document.getElementById("loginPasswordError").classList.add("visible");
+        valid = false;
+      }
+      if (!valid) return;
+
+      const submitBtn = document.getElementById("signInSubmitBtn");
+      const submitText = document.getElementById("signInSubmitText");
+      submitBtn.disabled = true;
+      submitText.textContent = "Signing In...";
+
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitText.textContent = "Sign In to Odette";
+
+        const nameFromEmail = email.split("@")[0].replace(".", " ");
+        const clientName = nameFromEmail.charAt(0).toUpperCase() + nameFromEmail.slice(1);
+        state.currentUser = { name: clientName, email: email };
+        updateAuthUI();
+
+        document.getElementById("signInForm").style.display = "none";
+        document.getElementById("authSuccessTitle").textContent = `Welcome back, ${clientName}!`;
+        document.getElementById("authSuccessMsg").textContent = `You are signed into your Odette client account.`;
+        document.getElementById("regSuccessBox").style.display = "block";
+        showToast(`✨ Signed in as ${clientName}`);
+      }, 500);
+    });
+
+    // Auth Continue Button
+    document.getElementById("authContinueBtn").addEventListener("click", () => {
+      document.getElementById("authModalBackdrop").classList.remove("open");
+    });
+
+    // Editorial and Other Buttons
+    document.getElementById("editorialShopDecoBtn").addEventListener("click", () => {
+      state.category = "Small Deco";
+      syncCategoryButtons();
+      renderProducts();
+      document.getElementById("shopSection").scrollIntoView({ behavior: "smooth" });
+    });
+
+    // Newsletter Form
+    document.getElementById("newsletterForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const val = document.getElementById("newsletterEmail").value.trim();
+      if (!val) return;
+      document.getElementById("newsletterForm").reset();
+      showToast(`✨ Thank you! "${val}" added to Odette circle.`);
+    });
+  }
+
+  // Initial Boot
+  renderProducts();
+  renderBag();
+  updateAuthUI();
+  initEvents();
+})();
+</script>
+</body>
+</html>
